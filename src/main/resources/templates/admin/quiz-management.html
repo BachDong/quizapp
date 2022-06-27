@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head th:include="fragments/layout.html :: head(${title})">
+</head>
+
+<body>
+<header th:replace="fragments/layout.html :: topnav"></header>
+<div class="wrapper">
+    <div class="container-fluid">
+        <div class="row">
+            <div th:replace="fragments/layout.html :: sidebar_admin"></div>
+            <div class="col-md-10 float-left">
+
+                <div class="modal fade bd-example-modal-lg" id="quizModal" tabindex="-1" role="dialog"
+                     aria-labelledby="quizModal"
+                     aria-hidden="true">
+                    <div class="modal-dialog modal-lg" role="document">
+
+                        <div class="modal-content">
+                            <form id="formQuiz">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Create new Quiz</h5>
+                                <p id="quizId" hidden="hidden"></p>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                            <form>
+                                <div class="modal-body">
+                                    <div class="form-check-inline">
+                                        <div class="col-md-5">
+                                            <div class="input-group mb-3">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">Quiz</span>
+                                                </div>
+                                                <input type="text" class="form-control" id="txtQuiz"
+                                                       aria-label="Search...">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="input-group mb-3">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">Duration </span>
+                                                </div>
+                                                <input type="number" class="form-control" id="duration"
+                                                       aria-label="Duration...">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="input-group mb-3">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">Mark</span>
+                                                </div>
+                                                <input type="number" class="form-control" id="mark"
+                                                       aria-label="Mark...">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class=" row form-check-inline">
+                                        <label class="col-form-label">Course: </label>
+                                        <div class="form-group col-md-8">
+                                            <div id="tabSubject">
+                                                <ul class="nav nav-tabs" role="tablist">
+                                                </ul>
+                                                <div class="tab-content ">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="input-group mb-3">
+                                                <div class="input-group-prepend">
+                                                    <label class="input-group-text" for="selectLevel">Level</label>
+                                                </div>
+                                                <select class="custom-select" id="selectLevel">
+                                                    <option value="0" selected>Choose level...</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class=" row form-check-inline" style="width: 40%;float: right;">
+
+                                        <button id="btnAddOrUpdate" type="button" class="btn btn-primary">Create
+                                        </button>
+                                        &nbsp; &nbsp;
+                                        <button id="btnViewDemo" type="button" class="btn btn-success">View Demo
+                                        </button>&nbsp; &nbsp;
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                            Cancel
+                                        </button>
+
+
+                                    </div>
+                                </div>
+
+                                <div class="modal-footer">
+                                    <hr>
+                                </div>
+                            </form>
+                            <div style="padding-left: 45px;padding-right: 45px;">
+                                <table id="questionTable" class="table">
+                                    <thead class="thead-light" style="color: darkviolet">
+                                    <tr>
+                                        <th scope="col">Question</th>
+                                        <th scope="col">Subject</th>
+                                        <th scope="col">Course</th>
+                                        <th scope="col">Level</th>
+                                        <th>Option</th>
+                                    </tr>
+                                    </thead>
+
+                                    <tbody id="tbodyQuestion">
+                                    </tbody>
+                                    <div id="paging" style="padding-bottom: 10px;"></div>
+                                </table>
+
+                            </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Modal -->
+                <div class="modal fade" id="demoQuiz" tabindex="-1" role="dialog"
+                     aria-labelledby="exampleModalLongTitle" aria-hidden="true" style="margin-top:35px;">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content" style="background-color: #fefefe ;font-family: 'Times New Roman">
+                            <div class="modal-header">
+                                <h3 class="modal-title" style="color: #e83e8c;" id="exampleModalLongTitle">Demo
+                                    Quiz</h3>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body" id="contentDemoQuiz">
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="card" style="width: 100%;">
+                        <div class="card-body">
+                            <h5 class="card-title">Search</h5>
+                            <form class="form-inline">
+                                <div class="col-md-3">
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <label class="input-group-text" for="slcSubject">Subject</label>
+                                        </div>
+                                        <select class="custom-select" id="slcSubject">
+                                            <option selected>Choose...</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <span style="margin-left: 20px;margin-right: 20px">Course : All</span>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <label class="input-group-text" for="selectLevelSearch">Level</label>
+                                        </div>
+                                        <select class="custom-select" id="selectLevelSearch">
+                                            <option selected>Choose...</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">Seach</span>
+                                        </div>
+                                        <input type="text" class="form-control" id="txtSearch" aria-label="Search...">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-outline-secondary" id="btnSearch" type="button">
+                                                Search
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                            <div class="row" style="margin: 0 auto;">
+                                <button id="createNewQuiz" style="margin: 0 auto;" class="btn btn-success">Create new
+                                    Quiz
+                                </button>
+                            </div>
+                            <br/>
+
+                            <div>
+                                <a style="margin-bottom: 5px;" href="#"
+                                   class="badge badge-primary" id="clearSearchQuiz">Reset</a>
+                                <table id="tableQuiz" class="table">
+                                    <thead class="thead-light">
+                                    <tr>
+                                        <th scope="col">Quiz</th>
+                                        <th scope="col">Subject</th>
+                                        <th scope="col">Course</th>
+                                        <th scope="col">Level</th>
+                                        <th scope="col">Duration</th>
+                                        <th scope="col">TotalMark</th>
+                                        <th scope="col">Edit</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="tbodyQuiz">
+                                    </tbody>
+                                    <tfoot>
+                                    <tr>
+                                        <td id="pagingQuiz" colspan="2"></td>
+                                        <td> <p style="color: deeppink" id="lenRow"></p></td>
+                                    </tr>
+                                    </tfoot>
+                                </table>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+        <div id="test"></div>
+    </div> <!-- end container -->
+</div>
+<footer th:replace="fragments/layout.html :: footer"></footer>
+</body>
+<script th:src="@{/js/custom/quizAdmin.js}"></script>
+<script th:src="@{/js/custom/index.js}"></script>
+<script th:src="@{/js/custom/pagination.js}"></script>
+<script th:src="@{/js/custom/pagination.min.js}"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.1.4/pagination.css"
+      integrity="sha256-fFqxRJ9q487bQTOBfn4T8jkJt8IGlrVzTeauNnuRHVA=" crossorigin="anonymous"/>
+
+
+
+</html>

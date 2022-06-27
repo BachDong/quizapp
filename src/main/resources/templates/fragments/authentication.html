@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<html>
+<head th:fragment="head(title)">
+    <meta charset="utf-8" />
+    <title th:text="${title}">Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
+    <meta content="Coderthemes" name="author" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <!-- App favicon -->
+    <link rel="shortcut icon" th:href="@{/images/favicon.ico}">
+
+    <!-- App css -->
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{/css/icons.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{/css/metismenu.min.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css" />
+
+    <script th:src="@{/js/modernizr.min.js}"></script>
+
+</head>
+
+
+<body class="bg-accpunt-pages">
+
+
+
+<footer th:fragment="footer">
+    <script>
+        var resizefunc = [];
+    </script>
+
+    <!-- jQuery  -->
+    <script th:src="@{/js/jquery.min.js}"></script>
+    <script th:src="@{/js/popper.min.js}"></script><!-- Popper for Bootstrap -->
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+    <script th:src="@{/js/metisMenu.min.js}"></script>
+    <script th:src="@{/js/waves.js}"></script>
+    <script th:src="@{/js/jquery.slimscroll.js}"></script>
+
+    <!-- App js -->
+    <script th:src="@{/js/jquery.core.js}"></script>
+    <script th:src="@{/js/jquery.app.js}"></script>
+
+</footer>
+
+</body>
+</html>

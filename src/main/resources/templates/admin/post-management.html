@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head th:include="fragments/layout.html :: head(${title})">
+</head>
+
+<body>
+<header th:replace="fragments/layout.html :: topnav"></header>
+<div class="wrapper">
+    <div class="container-fluid">
+        <div class="row">
+            <div th:replace="fragments/layout.html :: sidebar_admin"></div>
+            <div class="col-md-10 float-left">
+
+                <div class="modal fade" id="postModal" tabindex="-1" role="dialog" aria-labelledby="postModal" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="modelTitle">Create new post</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <form th:id="frmAddOrUpdatePost" th:method="post" th:action="@{/}">
+                            <div class="modal-body">
+                                <input th:type="hidden" value="" id="postId" name="postId">
+                                    <span class="badge badge-danger" id="errShow"></span>
+                                    <div class="form-group">
+                                        <label for="postTitle" class="col-form-label">Title:</label>
+                                        <input type="text" class="form-control" name="postTitle" id="postTitle">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="postContent" class="col-form-label">Content:</label>
+                                        <div th:id="postContent" th:name="postContent" class="form-control" id="postContent"></div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-form-label">Course:</label>
+                                        <div id="tabSubject">
+                                            <ul class="nav nav-tabs" role="tablist">
+
+                                            </ul>
+                                            <div class="tab-content" >
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button id="btnAddOrUpdate" type="submit" class="btn btn-primary">Add course</button>
+                            </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="card" style="width: 100%;">
+                        <div class="card-body">
+                            <h5 class="card-title">Search</h5>
+                            <form class="form-inline">
+                                <div class="col-md-5"><div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <label class="input-group-text" for="slcSubject">Subject</label>
+                                    </div>
+                                    <select class="custom-select" id="slcSubject">
+                                        <option selected>Choose...</option>
+                                        <option value="1">One</option>
+                                        <option value="2">Two</option>
+                                        <option value="3">Three</option>
+                                    </select>
+                                </div></div>
+                                <div class="col-md-2">
+                                    <span style="margin-left: 20px;margin-right: 20px">Course : All</span>
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">Seach</span>
+                                        </div>
+                                        <input type="text" class="form-control" id="txtSearch" aria-label="Search...">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-outline-secondary" id="btnSearch" type="button">Search</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                            <div class="row" style="margin: 0 auto;">
+                                <button id="createNewPost" style="margin: 0 auto;" class="btn btn-success">Create new post</button>
+                            </div>
+                            <br/>
+
+                            <table id="postTable" class="table">
+                                <thead class="thead-light">
+                                <tr>
+                                    <th scope="col">Title</th>
+                                    <th scope="col">Subject</th>
+                                    <th scope="col">Course</th>
+                                    <th scope="col">Author</th>
+                                    <th scope="col">Created Date</th>
+                                    <th scope="col">Update Date</th>
+                                    <th scope="col">Edit</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+
+                                </tbody>
+                                <nav aria-label="Page navigation example">
+                                    <ul id="pagination" class="pagination">
+
+
+
+
+                                    </ul>
+                                    <a style="margin-bottom: 5px;" href="#" class="badge badge-primary" id="clearSearch">Clear</a>
+                                </nav>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div> <!-- end container -->
+</div>
+<footer th:replace="fragments/layout.html :: footer"></footer>
+<script>
+    var quill = new Quill('#postContent', {
+        theme: 'snow'
+    });
+</script>
+<script th:src="@{/js/custom/postAdmin.js}"></script>
+<script th:src="@{/js/custom/index.js}"></script>
+</body>
+</html>

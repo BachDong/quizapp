@@ -1,0 +1,211 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<html>
+<head th:fragment="head(title)">
+    <meta charset="utf-8"/>
+    <title th:text="${title}">Adminox - Responsive Web App Kit</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+    <!-- App css -->
+
+
+    <link th:href="@{/css/nav.css}" rel="stylesheet" type="text/css"/>
+
+
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" type="text/css"/>
+    <link th:href="@{/css/icons.css}" rel="stylesheet" type="text/css"/>
+    <link th:href="@{/css/metismenu.min.css}" rel="stylesheet" type="text/css"/>
+    <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css"/>
+
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<!-- Navigation Bar-->
+<header th:fragment="topnav" id="topnav">
+    <div class="topbar-main">
+        <div class="container-fluid">
+
+            <!-- Logo container-->
+            <div class="logo">
+                <!-- Text Logo -->
+                <!--<a href="index.html" class="logo">-->
+                <!--</a>-->
+                <!-- Image Logo -->
+                <a th:href="@{/}" class="logo">
+                    <img th:src="@{/images/logo_dark.png}" alt="" height="24" class="logo-lg">
+                    <img th:src="@{/images/logo_sm.png}" alt="" height="24" class="logo-sm">
+                </a>
+
+            </div>
+            <!-- End Logo container-->
+
+
+            <div class="menu-extras topbar-custom">
+
+                <ul class="list-inline float-right mb-0">
+
+                    <li class="menu-item list-inline-item">
+                        <!-- Mobile menu toggle-->
+                        <a class="navbar-toggle nav-link">
+                            <div class="lines">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </div>
+                        </a>
+                        <!-- End mobile menu toggle-->
+                    </li>
+
+                    <li class="list-inline-item dropdown notification-list">
+                        <a class="nav-link dropdown-toggle waves-effect waves-light nav-user" data-toggle="dropdown"
+                           href="#" role="button"
+                           aria-haspopup="false" aria-expanded="false">
+                            <img th:src="@{/images/users/avatar-1.jpg}" alt="user" class="rounded-circle">
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right profile-dropdown " aria-labelledby="Preview">
+                            <!-- item-->
+                            <div class="dropdown-item noti-title">
+                                <h5 class="text-overflow">
+                                    <small>Welcome ! <span sec:authentication="name"></span></small>
+                                </h5>
+                            </div>
+
+                            <!-- item-->
+                            <a th:href="@{/user/examHistory}" class="dropdown-item notify-item">
+                                <i class="mdi mdi-account-circle"></i> <span>View History</span>
+                            </a>
+
+                            <!-- item-->
+                            <a href="javascript:void(0);" class="dropdown-item notify-item">
+                                <i class="mdi mdi-settings"></i> <span>Settings</span>
+                            </a>
+
+
+                            <!-- item-->
+                            <a href="javascript:void(0);" class="dropdown-item notify-item">
+                                <form action="#" th:action="@{/logout}" method="POST">
+                                    <button class="btn btn-danger" type="submit">Logout</button>
+                                </form>
+                            </a>
+
+                        </div>
+                    </li>
+
+                </ul>
+            </div>
+            <!-- end menu-extras -->
+
+            <div class="clearfix"></div>
+
+        </div> <!-- end container -->
+    </div>
+    <!-- end topbar-main -->
+
+    <div class="navbar-custom">
+        <div class="container-fluid">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                <a class="navbar-brand" href="#"> <img
+                        src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg" width="30" height="30"
+                        alt=""></a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                       Loading...
+                    </ul>
+                </div>
+            </nav>
+        </div> <!-- end container -->
+    </div> <!-- end navbar-custom -->
+</header>
+<!-- End Navigation Bar-->
+
+<div class="wrapper">
+    <div class="container-fluid">
+
+        <div class="row">
+            <div th:fragment="sidebar_home" id="sidebar_home" class=" col-md-2 sidebar"
+                 style="color: #FFFFFF;overflow: auto;height: 80vh">
+                <div class="mini-submenu">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </div>
+                <div th:id="sidebar-listItem" class="list-group">
+        <span href="#"  class="list-group-item " style="background-color: #343C49">
+            Submenu
+        </span>
+
+                </div>
+            </div>
+            <div th:fragment="sidebar_admin" class=" col-md-2 sidebar"
+                 style="color: #FFFFFF;overflow: auto;height: 80vh">
+                <div class="mini-submenu">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </div>
+                <div class="list-group">
+        <span href="#" class="list-group-item " style="background-color: #343C49">
+            Navigation
+        </span>
+                    <a id="btnShowQuizManagement" th:href="@{/admin/quiz-management/}" class="list-group-item">
+                        <i class="fa fa-comment-o"></i> Quiz management
+                    </a>
+                    <a id="btnShowPostManagement" th:href="@{/admin/post-management/}" class="list-group-item">
+                        <i class="fa fa-search"></i> Post management
+                    </a>
+                    <a id="btnShowQuestionManagement" th:href="@{/admin/question-management/}"  class="list-group-item">
+                        <i class="fa fa-question-circle" aria-hidden="true"></i> Question management
+                    </a>
+
+                </div>
+
+            </div>
+            <div id="adminContent" th:fragment="content" class="col-md-10 float-left" >
+                        <h1>Welcome to Admin ! </h1>
+            </div>
+            <div id="homeContent" th:fragment="content_home" class="col-md-10 float-left">
+
+            </div>
+
+        </div> <!-- end container -->
+    </div>
+</div>
+<!-- end wrapper -->
+
+<footer th:fragment="footer">
+    <script>
+        var resizefunc = [];
+    </script>
+
+    <!-- jQuery  -->
+    <script th:src="@{/js/jquery.min.js}"></script>
+    <script th:src="@{/js/popper.min.js}"></script><!-- Popper for Bootstrap -->
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+    <script th:src="@{/js/metisMenu.min.js}"></script>
+    <script th:src="@{/js/waves.js}"></script>
+    <script th:src="@{/js/jquery.slimscroll.js}"></script>
+
+    <script th:src="@{/js/jquery.scrollTo.min.js}"></script>
+
+    <!-- App js -->
+    <script th:src="@{/js/jquery.core.js}"></script>
+    <script th:src="@{/js/jquery.app.js}"></script>
+    <script th:src="@{/js/custom/display.js}"></script>
+    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
+</footer>
+</div>
+</body>
+
+</html>

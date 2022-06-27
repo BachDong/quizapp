@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head th:include="fragments/layout.html :: head(${title})">
+</head>
+
+<body>
+<header th:replace="fragments/layout.html :: topnav"></header>
+<div class="wrapper">
+    <div class="container-fluid">
+        <div class="row">
+            <div th:replace="fragments/layout.html :: sidebar_home"></div>
+            <div th:id="homeContent" class="col-md-10 float-left">
+                <div class="card" >
+                    <div class="card-body">
+                        <span id="welcomeText">Please choose subject to display exam history</span>
+                        <table style="display: none" class="table" id="tblExam">
+                            <thead class="thead-light">
+                            <tr>
+                                <th scope="col">Exam</th>
+                                <th scope="col">Subject</th>
+                                <th scope="col">Mark</th>
+                                <th scope="col">Date</th>
+                                <th scope="col">Edit</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> <!-- end container -->
+</div>
+<footer th:replace="fragments/layout.html :: footer"></footer>
+<script th:src="@{/js/custom/userExam.js}"></script>
+</body>
+</html>

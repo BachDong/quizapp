@@ -1,0 +1,92 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:form="http://www.w3.org/1999/html">
+<html>
+<head th:replace="fragments/authentication.html :: head(${title})"></head>
+
+
+<body class="bg-accpunt-pages">
+
+<!-- HOME -->
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+
+                <div class="wrapper-page">
+
+                    <div class="account-pages">
+                        <div class="account-box">
+                            <div class="account-logo-box">
+                                <h2 class="text-uppercase text-center">
+                                    <a th:href="@{/}" class="text-success">
+                                        <span><img th:src="@{/images/logo_dark.png}" alt="" height="30"></span>
+                                    </a>
+
+                                </h2>
+                                <h5 class="text-uppercase font-bold m-b-5 m-t-50">Sign Up</h5>
+                                <p class="m-b-0">Register a new account</p>
+                            </div>
+                            <div class="account-content">
+                                <form th:object="${userDto}" th:method="POST" class="form-horizontal" th:action="@{/register}" >
+
+                                    <div class="form-group m-b-20 row">
+                                        <div class="col-12">
+                                            <label for="userName">Username</label>
+                                            <input class="form-control" name="userName" type="text" id="userName" required="" th:value="${userDto.userName}">
+                                            <div class="badge badge-danger" th:errors="*{userName}"></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row m-b-20">
+                                        <div class="col-12">
+                                            <!--<a href="page-recoverpw.html" class="text-muted pull-right"><small>Forgot your password?</small></a>-->
+                                            <label for="password">Password</label>
+                                            <input class="form-control" name="password" type="password" id="password" th:value="${userDto.password}">
+                                            <div class="badge badge-danger" th:errors="*{password}"></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row m-b-20">
+                                        <div class="col-12">
+                                            <!--<a href="page-recoverpw.html" class="text-muted pull-right"><small>Forgot your password?</small></a>-->
+                                            <label for="rePassword">Re password</label>
+                                            <input class="form-control" name="rePassword" type="password"  id="rePassword" th:value="${userDto.rePassword}">
+                                            <div class="badge badge-danger" th:errors="*{rePassword}"></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row text-center m-t-10">
+                                        <div class="col-12">
+                                            <button class="btn btn-md btn-block btn-primary waves-effect waves-light" type="submit">Register</button>
+                                        </div>
+                                    </div>
+
+                                </form>
+
+                                <div class="row m-t-50">
+                                    <div class="col-sm-12 text-center">
+                                        <p class="text-muted">Already have an account? <a th:href="@{/login}" class="text-dark m-l-5"><b>Login</b></a></p>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end card-box-->
+
+
+                </div>
+                <!-- end wrapper -->
+
+            </div>
+        </div>
+    </div>
+</section>
+<!-- END HOME -->
+
+
+
+<footer th:replace="fragments/authentication.html :: footer"></footer>
+
+</body>
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head th:include="fragments/layout.html :: head(${title})">
+</head>
+
+<body>
+<header th:replace="fragments/layout.html :: topnav"></header>
+<div class="wrapper">
+    <div class="container-fluid">
+        <div class="row">
+            <div th:replace="fragments/layout.html :: sidebar_admin" ></div>
+            <div th:replace="fragments/layout.html :: content" ></div>
+        </div>
+    </div> <!-- end container -->
+</div>
+<footer th:replace="fragments/layout.html :: footer"></footer>
+<script th:src="@{/js/custom/postAdmin.js}"></script>
+<script th:src="@{/js/custom/index.js}"></script>
+</body>
+</html>

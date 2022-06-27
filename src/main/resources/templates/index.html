@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head th:include="fragments/layout.html :: head(${title})">
+</head>
+
+<body>
+    <header th:replace="fragments/layout.html :: topnav"></header>
+    <div class="wrapper">
+        <div id="container" class="container-fluid">
+
+        </div> <!-- end container -->
+    </div>
+    <footer th:replace="fragments/layout.html :: footer"></footer>
+    <script th:src="@{/js/custom/index.js}"></script>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
+<body>
+<div style="width: 100%;">
+    <table >
+        <th:block th:each="question,iter : ${questionList}">
+            <thead>
+            <tr>
+                <td style="color:#10707f"><b th:text="${iter.index+1}"></b>.&nbsp;<b th:text="${question.questionText}"></b></td>
+            </tr>
+            </thead>
+            <tbody>
+            <th:block th:each="answer,iter : ${question.answers}">
+                <tr>
+                    <td><b th:text="${answer.sequence}"></b>.&nbsp;<span th:text="${answer.answerText}"></span>
+                    </td>
+                </tr>
+            </th:block>
+            <td>
+                <hr>
+            </td>
+            </tbody>
+        </th:block>
+    </table>
+
+</div>
+
+</body>
+
+
+</html>

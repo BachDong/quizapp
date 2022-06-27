@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head th:include="fragments/layout.html :: head(${title})">
+</head>
+
+<body>
+<header th:replace="fragments/layout.html :: topnav"></header>
+<style>
+    .list-group-item {
+        cursor: pointer;
+    }
+</style>
+<div class="wrapper">
+    <div class="container-fluid">
+        <!-- The Modal -->
+        <div class="modal" id="resultModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title" th:id="resultModalTitle">Modal Heading</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <p><b>Score</b> : <span id="score"></span> -  <b>Rank</b> : <span id="rank"></span> -  <b>Correct</b> : <span id="countCorrectAnswer"></span> -  <b>Wrong</b> : <span id="countWrongAnswer"></span> -  <b>Status</b> : <span id="status"></span></p>
+                        <p th:id="userWrong">
+
+                        </p>
+                    </div>
+
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div th:replace="fragments/layout.html :: sidebar_home"></div>
+            <div th:id="homeContent" class="col-md-10 float-left">
+                <div class="card" >
+                    <div class="card-body">
+                        <h5 id="postTitle" class="card-title"></h5>
+                        <span style="color:#00aff0" id="timeLeft"></span>
+                        <p id="postContent" class="card-text"></p>
+                        <div id="testContent" class="testContent" test-id="">
+
+                        </div>
+                        <button style="display: none" th:id="postPrevious" post-id="" href="#" class="btn btn-primary">Previous post</button>
+                        <button style="display: none" th:id="postNext" post-id="" href="#" class="btn btn-success ">Next post</button>
+                        <button style="display: none" th:id="submitTest" class="btn btn-success ">Submit test</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> <!-- end container -->
+</div>
+<footer th:replace="fragments/layout.html :: footer"></footer>
+<script th:src="@{/js/custom/viewSubjectPage.js}"></script>
+<script th:src="@{/js/custom/index.js}"></script>
+</body>
+</html>

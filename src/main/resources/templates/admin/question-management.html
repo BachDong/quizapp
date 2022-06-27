@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head th:include="fragments/layout.html :: head(${title})">
+</head>
+
+<body>
+<header th:replace="fragments/layout.html :: topnav"></header>
+<div class="wrapper">
+    <div class="container-fluid">
+        <div class="row">
+            <div th:replace="fragments/layout.html :: sidebar_admin"></div>
+            <div class="col-md-10 float-left">
+
+                <div class="modal fade" id="questionModal" tabindex="-1" role="dialog" aria-labelledby="questionModal"
+                     aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h3 class="modal-title" id="exampleModalLabel" style="color: #e83e8c">Create new question</h3>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <span class="badge badge-danger" id="errShow"></span>
+                                <div class="form-group">
+                                    <p hidden="hidden" id="question_id"></p>
+                                    <label for="questionText" class="col-form-label">Question:</label>
+                                    <input type="text" class="form-control" name="questionText" id="questionText">
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-form-label">Course:</label>
+                                    <div id="tabSubject">
+                                        <ul class="nav nav-tabs" role="tablist">
+                                        </ul>
+                                        <div class="tab-content">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-form-label">Answer :</label>
+
+                                    <div id="main">
+                                        <div id="site_content">
+                                            <div id="content">
+                                                <table id="tbl-add-question">
+                                                    <tbody id="tbodyAnswerAdd">
+                                                    <tr id="rowA">
+                                                        <td><input type="checkbox" id="correctAnswerA"
+                                                                   name="correctAnswer"
+                                                                   checked value="0">
+                                                        </td>
+
+                                                        <td class="td-question"><input type="text"
+                                                                                       name="answerA" id="answerA"
+                                                                                       class="answer rounded mx-4"/>
+                                                            <button type="button" id="btn-add-answer"
+                                                                    onclick="addAnswer()"><i class="fa fa-plus-circle"
+                                                                                             aria-hidden="true"
+                                                                                             style="color: #2bab53"></i>
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                    <tr id="rowB">
+                                                        <td><input type="checkbox" id="correctAnswerB"
+                                                                   name="correctAnswer" value="0">
+                                                        </td>
+
+                                                        <td class="td-question"><input type="text"
+                                                                                       name="answerB" id="answerB"
+                                                                                       class="answer rounded mx-4"/>
+                                                            <button type="button" id="btn-remove-answerB"
+                                                                    onclick="removeRowB()"><i
+                                                                    class="fa fa-times" aria-hidden="true"
+                                                                    style="color: #e8477e"></i>
+                                                            </button>
+
+                                                        </td>
+
+                                                    </tr>
+                                                    <tr id="rowC">
+                                                        <td><input type="checkbox" id="correctAnswerC"
+                                                                   name="correctAnswer" value="0"
+                                                        >
+                                                        </td>
+
+                                                        <td class="td-question"><input type="text"
+                                                                                       name="answerC" id="answerC"
+                                                                                       class="answer rounded mx-4"/>
+                                                            <button type="button" id="btn-remove-answerC"
+                                                                    onclick="removeRowC()"><i
+                                                                    class="fa fa-times" aria-hidden="true"
+                                                                    style="color: #e8477e"></i>
+                                                            </button>
+                                                        </td>
+                                                        <td>
+
+                                                        </td>
+                                                    </tr>
+                                                    <tr id="rowD">
+                                                        <td><input type="checkbox" id="correctAnswerD"
+                                                                   name="correctAnswer" value="0"
+                                                        >
+                                                        </td>
+
+                                                        <td class="td-question"><input type="text"
+                                                                                       name="answerD" id="answerD"
+                                                                                       class="answer rounded mx-4"/>
+                                                            <button type="button" id="btn-remove-answerD"
+                                                                    onclick="removeRowD()"><i
+                                                                    class="fa fa-times" aria-hidden="true"
+                                                                    style="color: #e8477e"></i>
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+
+
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+
+                                    <label for="selectLevel" class="col-form-label"> Level:</label>
+                                    <div class="input-group">
+                                        <select class="custom-select" id="selectLevel">
+                                            <option selected>Choose Level...</option>
+
+                                        </select>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <span id="message">
+                            </span>
+                            <div class="modal-footer row">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button id="btnAddQuestion" type="button" class="btn btn-primary">Create Question
+                                </button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <!--Border search Question-->
+                <div class="row">
+
+                    <div class="card" style="width: 100%;">
+
+                        <div class="card-body">
+                            <h5 class="card-title">Search</h5>
+                            <form class="form-inline">
+                                <div class="col-md-3">
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <label class="input-group-text" for="slcSubject">Subject</label>
+                                        </div>
+                                        <select class="custom-select" id="slcSubject" name="subjectId">
+                                            <option selected value="0">Choose...</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <span style="margin-left: 5px;margin-right: 5px">Course : All</span>
+                                </div>
+                                <div class=" col-md-3  form-group">
+                                    <div class="input-group">
+                                        <select class="custom-select" name="levelId" id="selectLevelSearch">
+                                            <option selected value="0">Choose Level...</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">Seach</span>
+                                        </div>
+                                        <input type="text" class="form-control" name="questionText"
+                                               id="txtSearchQuestionText" aria-label="Search...">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-outline-secondary" id="btnSearchQuestion"
+                                                    type="submit">
+                                                Search
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                            <div class="row" style="margin: 0 auto;">
+                                <button id="createNewQuestion" style="margin: 0 auto;" class="btn btn-success">Create
+                                    new question
+                                </button>
+                                <button type="button" id="btn-import" class="btn btn-primary">Import</button>
+                            </div>
+
+                            <br/>
+
+                            <table id="questionTable" class="table">
+                                <thead class="thead-light" style="color: darkviolet">
+                                <tr>
+                                    <th scope="col">Question</th>
+                                    <th scope="col">Answer</th>
+                                    <th scope="col">Subject</th>
+                                    <th scope="col">Course</th>
+                                    <th scope="col">Level</th>
+                                    <th scope="col">Edit</th>
+                                </tr>
+                                </thead>
+                                <tbody id="tbodyQuestion">
+
+                                </tbody>
+                                <nav aria-label="Page navigation example">
+                                    <ul id="paginationQuestion" class="pagination">
+
+                                    </ul>
+                                </nav>
+                                <a style="margin-bottom: 5px;" href="#"
+                                   class="badge badge-primary" id="clearSearchQuestion">Reset</a>
+                            </table>
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div> <!-- end container -->
+    <!-- Large modal -->
+    <div  id="modalView" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+
+            <div  class="modal-content" style="font-family:'Times New Roman';border-top-left-radius: 17px;border-top-right-radius: 17px;">
+                <br>
+                <center style="font-family:'Open Sans', sans-serif;"; ><h1 style="color:#6f42c1 ">Detail Question</h1> </center>
+                    <div id="detail-question"></div>
+            </div>
+        </div>
+    </div>
+    <div class="modal" tabindex="-1" role="dialog" id="modalImportExcel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title" style="color:#e8477e;">Import Question From Excel</h2>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                        <!--Form upload file to ? ....-->
+
+                    <h3>Select file to import to questions:</h3>
+                    <form method="POST" enctype="multipart/form-data" id="fileUploadForm">
+                        Description: <br/>
+                        <input type="text" name="description" class="form-control"/>
+                        <br/>
+                        <label class="file-upload btn btn-primary">
+                            Browser Multiple file: <input type="file" id="upfile" name="files" multiple/><br />
+                        </label>
+                        <input type="submit" value="Upload" id="submitButton" class="btn btn-danger btn-sm"/>
+                    </form>
+                    <h4>Upload Results:</h4>
+                    <div style="border:1px solid #ccc;padding: 5px;">
+                        <span id="result"></span>
+                    </div>
+                    <br>
+                    <!--End Form upload file to ? ....-->
+                   <b> <p>OR</p></b>
+                    <label class="file-upload btn btn-secondary">
+                       Paste URL Local or URL Download Your Excel to here...
+                        <input type="text" class="form-control" id="i_fileViaURL" value="">
+                    </label>
+
+                    <h3 id="messageImport" style="color: #ec6794"></h3>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="btn-import-now" class="btn btn-primary">Import Now</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<footer th:replace="fragments/layout.html :: footer"></footer>
+<script th:src="@{/js/custom/questionAdmin.js}"></script>
+<script th:src="@{/js/custom/index.js}"></script>
+<script th:src="@{/js/custom/fileUpload.js}"></script>
+</body>
+</html>
